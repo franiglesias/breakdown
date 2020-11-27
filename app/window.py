@@ -1,7 +1,5 @@
 import pygame
 
-from app.scene import Scene
-
 
 class Window(object):
     def __init__(self, width, height, title):
