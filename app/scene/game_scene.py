@@ -1,6 +1,7 @@
 import pygame
 from pygame.sprite import Group
 
+from app.scene.field.field import Field
 from app.scene.position import Position
 from app.scene.scene import Scene
 from app.scene.size import Size
@@ -14,6 +15,9 @@ class GameScene(Scene):
         self.pad = self.build_pad()
         self.all_sprites = Group()
         self.add_sprites(sprite=self.pad)
+        field = Field(size=Size(800, 600), position=Position(0, 0))
+        field.add_sprites_to(scene=self)
+        field.add_borders_to(pad=self.pad)
 
     @staticmethod
     def build_pad():

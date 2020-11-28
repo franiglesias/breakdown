@@ -1,11 +1,12 @@
 from pygame import Surface
-from pygame.sprite import Sprite
+from pygame.sprite import Sprite, spritecollide, Group
 
 
 class Pad(Sprite):
     def __init__(self, size, position, color):
         super().__init__()
 
+        self.borders = Group()
         self.image = self.create_pad_image(size=size, color=color)
         self.rect = self.image.get_rect()
         self.rect.y = position.y()
@@ -17,6 +18,9 @@ class Pad(Sprite):
         engine.bind_pad(pad=self)
         self.control_engine = engine
 
+    def bind_border(self, border):
+        self.borders.add(border)
+
     @staticmethod
     def create_pad_image(size, color):
         image = Surface(size.tuple())
@@ -25,6 +29,10 @@ class Pad(Sprite):
 
     def update(self):
         self.rect.x += self.dx
+
+        for _ in spritecollide(self, self.borders, False):
+            self.rect.x -= self.dx
+            self.stop()
 
     def handle(self, event):
         self.control_engine.handle(event)
