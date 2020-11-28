@@ -2,9 +2,11 @@ import pygame
 
 
 class KeyboardControlEngine(object):
-    def __init__(self, pad):
+    def __init__(self):
+        self.pad = None
+
+    def bind_pad(self, pad):
         self.pad = pad
-        self.pad.bind_control_engine(self)
 
     def handle(self, event):
         if event.type == pygame.KEYDOWN:

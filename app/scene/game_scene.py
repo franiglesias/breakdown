@@ -1,7 +1,9 @@
 import pygame
 from pygame.sprite import Group
 
+from app.scene.position import Position
 from app.scene.scene import Scene
+from app.scene.size import Size
 from game.engine.keyboard import KeyboardControlEngine
 from game.pad import Pad
 
@@ -11,12 +13,12 @@ class GameScene(Scene):
         super().__init__(window)
         self.pad = self.build_pad()
         self.all_sprites = Group()
-        self.add_sprites(self.pad)
+        self.add_sprites(sprite=self.pad)
 
     @staticmethod
     def build_pad():
-        pad = Pad(size=(75, 15),position=(530, 400),color=(255, 255, 255))
-        KeyboardControlEngine(pad)
+        pad = Pad(size=Size(75, 15), position=Position(400, 550), color=(255, 255, 255))
+        pad.bind_control_engine(engine=KeyboardControlEngine())
         return pad
 
     def add_sprites(self, sprite):

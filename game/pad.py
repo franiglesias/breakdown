@@ -1,26 +1,25 @@
 from pygame import Surface
 from pygame.sprite import Sprite
 
-from game.engine.keyboard import KeyboardControlEngine
-
 
 class Pad(Sprite):
     def __init__(self, size, position, color):
         super().__init__()
 
-        self.image = self.image_of_pad(size, color)
+        self.image = self.create_pad_image(size=size, color=color)
         self.rect = self.image.get_rect()
-        self.rect.y = position[0]
-        self.rect.x = position[1] - size[1] / 2
+        self.rect.y = position.y()
+        self.rect.x = position.x() - size.width() / 2
         self.dx = 0
         self.control_engine = None
 
     def bind_control_engine(self, engine):
+        engine.bind_pad(pad=self)
         self.control_engine = engine
 
     @staticmethod
-    def image_of_pad(size, color):
-        image = Surface(size)
+    def create_pad_image(size, color):
+        image = Surface(size.tuple())
         image.fill(color)
         return image
 
