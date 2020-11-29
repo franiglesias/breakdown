@@ -35,6 +35,10 @@ class Field(object):
         scene.add_sprites(self.top)
         scene.add_sprites(self.bottom)
 
-    def add_borders_to(self, pad):
-        pad.bind_border(self.left)
-        pad.bind_border(self.right)
+    def add_borders_to(self, observer):
+        observer.bind_border(self.left)
+        observer.bind_border(self.right)
+
+    def add_top_to(self, observer):
+        observer.bind_top(self.top)
+        observer.bind_top(self.bottom)
